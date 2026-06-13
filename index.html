@@ -1719,15 +1719,20 @@ async function submitRSVP(event) {
   }
 
   const attendance = document.querySelector('input[name="attendance"]:checked')?.value || '';
-  const guests = attendance === 'Жұбайыммен келемін' ? 2 :
-    attendance === 'Өкінішке орай келе алмаймын' ? 0 : 1;
+  const guests = attendance === 'Жұбайыммен келемін' ? '2' :
+    attendance === 'Өкінішке орай келе алмаймын' ? '0' : '1';
+  const createdAt = new Intl.DateTimeFormat('ru-RU', {
+    timeZone: 'Asia/Almaty',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  }).format(new Date());
   const payload = {
-    createdAt: new Date().toISOString(),
+    createdAt,
     name,
     attendance,
     guests,
-    comment: '',
-    page: window.location.href
+    comment: ''
   };
 
   rsvpSubmit.disabled = true;
